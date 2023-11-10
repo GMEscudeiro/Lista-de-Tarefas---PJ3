@@ -39,22 +39,135 @@ int deletarTarefa(ListaDeTarefas *lt){
     return 0;
 };
 
+int filtrar(ListaDeTarefas lt, int opcao){
+    int debug = 0;
+    int filtro;
+    char categoria[100];
+    if(opcao == 0){
+        for (int i = 0; i < lt.qtd; i++){
+            printf("Tarefa %d: \n", i + 1);
+            printf("Categoria: %s\n", lt.tarefas[i].categoria);
+            printf("Descricao: %s\n", lt.tarefas[i].descricao);
+            printf("Prioridade: %d\n" , lt.tarefas[i].prioridade);
+            if(lt.tarefas[i].estado == 1){
+                printf("Estado: Nao iniciado");
+            }else if(lt.tarefas[i].estado == 2){
+                printf("Estado: Em desenvolvimento");
+            }else{
+                printf("Estado: Completo");
+            }
+            printf("\n");
+        }
+        debug = 1;
+    }else if(opcao == 1){
+        printf("Qual prioridade deseja filtrar?\n");
+        scanf("%d", &filtro);
+        for (int i = 0; i < lt.qtd; i++) {
+            if (lt.tarefas[i].prioridade == filtro) {
+                printf("Tarefa %d: \n", i + 1);
+                printf("Categoria: %s\n", lt.tarefas[i].categoria);
+                printf("Descricao: %s\n", lt.tarefas[i].descricao);
+                printf("Prioridade: %d\n", lt.tarefas[i].prioridade);
+                if (lt.tarefas[i].estado == 1) {
+                    printf("Estado: Nao iniciado\n");
+                } else if (lt.tarefas[i].estado == 2) {
+                    printf("Estado: Em desenvolvimento\n");
+                } else {
+                    printf("Estado: Completo\n");
+                }
+                printf("\n");
+                debug = 1;
+            }
+        }
+    }else if(opcao == 2){
+        printf("Qual estado deseja filtrar?\n");
+        scanf("%d", &filtro);
+        for (int i = 0; i < lt.qtd; i++) {
+            if (lt.tarefas[i].estado == filtro) {
+                printf("Tarefa %d: \n", i + 1);
+                printf("Categoria: %s\n", lt.tarefas[i].categoria);
+                printf("Descricao: %s\n", lt.tarefas[i].descricao);
+                printf("Prioridade: %d\n", lt.tarefas[i].prioridade);
+                if (lt.tarefas[i].estado == 1) {
+                    printf("Estado: Nao iniciado\n");
+                } else if (lt.tarefas[i].estado == 2) {
+                    printf("Estado: Em desenvolvimento\n");
+                } else {
+                    printf("Estado: Completo\n");
+                }
+                printf("\n");
+                debug = 1;
+            }
+        }
+    }else if(opcao == 3){
+        printf("Qual categoria deseja filtrar?\n");
+        scanf("%s", &categoria);
+        int p = 0;
+        while(p < 6){
+            for (int i = 0; i < lt.qtd; i++) {
+                if (strcmp(lt.tarefas[i].categoria, categoria) == 0){
+                    debug = 1;
+                    if(lt.tarefas[i].prioridade == p+1){
+                        printf("Tarefa %d: \n", i + 1);
+                        printf("Categoria: %s\n", lt.tarefas[i].categoria);
+                        printf("Descricao: %s\n", lt.tarefas[i].descricao);
+                        printf("Prioridade: %d\n", lt.tarefas[i].prioridade);
+                        if (lt.tarefas[i].estado == 1) {
+                            printf("Estado: Nao iniciado\n");
+                        } else if (lt.tarefas[i].estado == 2) {
+                            printf("Estado: Em desenvolvimento\n");
+                        } else {
+                            printf("Estado: Completo\n");
+                        }
+                        printf("\n");
+                        debug = 1;
+                    }
+                }
+            }
+            p += 1;
+        }
+    }else if(opcao == 4){
+        printf("Qual categoria deseja filtrar?\n");
+        scanf("%s", &categoria);
+        printf("Qual prioridade deseja filtrar?\n");
+        scanf("%d", &filtro);
+        for (int i = 0; i < lt.qtd; i++) {
+            if (lt.tarefas[i].prioridade == filtro && (strcmp(lt.tarefas[i].categoria, categoria) == 0)) {
+                printf("Tarefa %d: \n", i + 1);
+                printf("Categoria: %s\n", lt.tarefas[i].categoria);
+                printf("Descricao: %s\n", lt.tarefas[i].descricao);
+                printf("Prioridade: %d\n", lt.tarefas[i].prioridade);
+                if (lt.tarefas[i].estado == 1) {
+                    printf("Estado: Nao iniciado\n");
+                } else if (lt.tarefas[i].estado == 2) {
+                    printf("Estado: Em desenvolvimento\n");
+                } else {
+                    printf("Estado: Completo\n");
+                }
+                printf("\n");
+                debug = 1;
+            }
+        }
+    }
+
+    if (!debug) {
+        printf("Nenhuma tarefa encontrada com o filtro escolhido.");
+    }
+
+    return 0;
+};
+
 //Essa funcao lista as tarefas presentes na struct ListaDeTarefas
 int listarTarefa(ListaDeTarefas lt){
-    for (int i = 0; i < lt.qtd; i++){
-        printf("Tarefa %d:\n", i + 1);
-        printf("Categoria: %s\n", lt.tarefas[i].categoria);
-        printf("Descricao: %s\n", lt.tarefas[i].descricao);
-        printf("Prioridade: %d\n" , lt.tarefas[i].prioridade);
-        if(lt.tarefas[i].estado == 1){
-            printf("Estado: Nao iniciado");
-        }else if(lt.tarefas[i].estado == 2){
-            printf("Estado: Em desenvolvimento");
-        }else{
-            printf("Estado: Completo");
-        }
-        printf("\n");
-    }
+    int opcao;
+    printf("Como deseja filtrar a listagem?\n");
+    printf("0 - Sem filtro\n");
+    printf("1 - Filtrar por prioridade\n");
+    printf("2 - Filtrar por estado\n");
+    printf("3 - Filtrar por categoria\n");
+    printf("4 - Filtrar por prioridade e categoria\n");
+    scanf("%d", &opcao);
+    filtrar(lt, opcao);
     return 0;
 };
 
