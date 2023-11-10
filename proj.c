@@ -217,6 +217,7 @@ void printMenu(){
     printf("2 - Deletar Tarefa\n");
     printf("3 - Listar Tarefas\n");
     printf("4 - Alterar Tarefas\n");
+    printf("5 - Exportar Tarefas\n");
     printf("0 - Sair\n");
     printf("Digite a opcao que voce quer executar:");
 };
@@ -248,4 +249,91 @@ int carregarLista(ListaDeTarefas *lt, char nome[]){
     fread(lt, sizeof(ListaDeTarefas), 1, arquivo);
     fclose(arquivo);
     return 0;
+};
+
+int exportar(ListaDeTarefas lt){
+    FILE *f = fopen("tarefas.txt", "w");
+    int opcao;
+    printf("Com qual filtro deseja exportar as tarefas?\n");
+    printf("1 - Filtrar por prioridade\n");
+    printf("2 - Filtrar por categoria\n");
+    printf("3 - Filtrar por prioridade e categoria\n");
+    scanf("%d", &opcao);
+    int debug = 0;
+    int filtro;
+    char categoria[100];
+    if(opcao == 1){
+        printf("Qual prioridade deseja filtrar?\n");
+        scanf("%d", &filtro);
+        for (int i = 0; i < lt.qtd; i++) {
+            if (lt.tarefas[i].prioridade == filtro) {
+                fprintf(f,"Tarefa %d: \n", i + 1);
+                fprintf(f,"Categoria: %s\n", lt.tarefas[i].categoria);
+                fprintf(f,"Descricao: %s\n", lt.tarefas[i].descricao);
+                fprintf(f,"Prioridade: %d\n", lt.tarefas[i].prioridade);
+                if (lt.tarefas[i].estado == 1) {
+                    fprintf(f,"Estado: Nao iniciado\n");
+                } else if (lt.tarefas[i].estado == 2) {
+                    fprintf(f,"Estado: Em desenvolvimento\n");
+                } else {
+                    fprintf(f,"Estado: Completo\n");
+                }
+                fprintf(f,"\n");
+                debug = 1;
+            }
+        }
+    }else if(opcao == 2){
+        printf("Qual categoria deseja filtrar?\n");
+        scanf("%s", &categoria);
+        int p = 0;
+        while(p < 6){
+            for (int i = 0; i < lt.qtd; i++) {
+                if (strcmp(lt.tarefas[i].categoria, categoria) == 0){
+                    debug = 1;
+                    if(lt.tarefas[i].prioridade == p+1){
+                        fprintf(f,"Tarefa %d: \n", i + 1);
+                        fprintf(f,"Categoria: %s\n", lt.tarefas[i].categoria);
+                        fprintf(f,"Descricao: %s\n", lt.tarefas[i].descricao);
+                        fprintf(f,"Prioridade: %d\n", lt.tarefas[i].prioridade);
+                        if (lt.tarefas[i].estado == 1) {
+                            fprintf(f,"Estado: Nao iniciado\n");
+                        } else if (lt.tarefas[i].estado == 2) {
+                            fprintf(f,"Estado: Em desenvolvimento\n");
+                        } else {
+                            fprintf(f,"Estado: Completo\n");
+                        }
+                        fprintf(f,"\n");
+                        debug = 1;
+                    }
+                }
+            }
+            p += 1;
+        }
+    }else if(opcao == 3){
+        printf("Qual categoria deseja filtrar?\n");
+        scanf("%s", &categoria);
+        printf("Qual prioridade deseja filtrar?\n");
+        scanf("%d", &filtro);
+        for (int i = 0; i < lt.qtd; i++) {
+            if (lt.tarefas[i].prioridade == filtro && (strcmp(lt.tarefas[i].categoria, categoria) == 0)) {
+                fprintf(f,"Tarefa %d: \n", i + 1);
+                fprintf(f,"Categoria: %s\n", lt.tarefas[i].categoria);
+                fprintf(f,"Descricao: %s\n", lt.tarefas[i].descricao);
+                fprintf(f,"Prioridade: %d\n", lt.tarefas[i].prioridade);
+                if (lt.tarefas[i].estado == 1) {
+                    fprintf(f,"Estado: Nao iniciado\n");
+                } else if (lt.tarefas[i].estado == 2) {
+                    fprintf(f,"Estado: Em desenvolvimento\n");
+                } else {
+                    fprintf(f,"Estado: Completo\n");
+                }
+                fprintf(f,"\n");
+                debug = 1;
+            }
+        }
+    }
+
+    if (!debug) {
+        printf("Nenhuma tarefa encontrada com o filtro escolhido.");
+    }
 };

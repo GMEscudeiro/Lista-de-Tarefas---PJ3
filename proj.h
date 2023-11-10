@@ -23,5 +23,6 @@ void printMenu();
 
 int salvarLista(ListaDeTarefas lt, char nome[]);
 int carregarLista(ListaDeTarefas *lt, char nome[]);
+int exportar(ListaDeTarefas lt);
 
 #endif //PROJETO_PROJ_H
