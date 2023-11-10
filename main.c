@@ -24,7 +24,10 @@ int main() {
             listarTarefa(lt);
         } else if (opcao == 4){
             alterarTarefa(&lt);
+        } else if (opcao == 5){
+            exportar(lt);
         }
+        
     } while (opcao != 0);
 
     cod = salvarLista(lt, "arquivo");
