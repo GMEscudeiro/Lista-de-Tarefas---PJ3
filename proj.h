@@ -1,14 +1,11 @@
-//
-// Created by uniflduarte on 15/09/2023.
-//
-
 #ifndef PROJETO_PROJ_H
 #define PROJETO_PROJ_H
 
 typedef struct{
     int prioridade;
-    char tarefa[300];
-    char descricao[100];
+    char categoria[100];
+    char descricao[300];
+    int estado;
 }Tarefas;
 
 typedef struct {
@@ -19,6 +16,7 @@ typedef struct {
 int criarTarefa(ListaDeTarefas *lt);
 int deletarTarefa(ListaDeTarefas *lt);
 int listarTarefa(ListaDeTarefas lt);
+int alterarTarefa(ListaDeTarefas *lt);
 
 void printMenu();
 
