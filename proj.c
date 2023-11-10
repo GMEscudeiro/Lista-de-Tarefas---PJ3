@@ -16,6 +16,7 @@ int criarTarefa(ListaDeTarefas *lt){
     scanf(" %d", &lt->tarefas[lt->qtd].estado);
     printf("\n");
     lt->qtd += 1;
+    printf("Tarefa criada.\n");
     return 0;
 };
 
@@ -39,6 +40,7 @@ int deletarTarefa(ListaDeTarefas *lt){
     return 0;
 };
 
+//Essa funcao filtra as tarefas e as envia para a funcao listarTarefas
 int filtrar(ListaDeTarefas lt, int opcao){
     int debug = 0;
     int filtro;
@@ -171,6 +173,7 @@ int listarTarefa(ListaDeTarefas lt){
     return 0;
 };
 
+//Essa funcao permite fazer alteracoes nas tarefas ja existentes
 int alterarTarefa(ListaDeTarefas *lt){
     int tarefa;
     int campo;
@@ -208,7 +211,8 @@ int alterarTarefa(ListaDeTarefas *lt){
         printf("3 - completo\n");
         scanf("%d", &lt->tarefas[tarefa-1].estado);
     }
-
+    printf("Alteracoes feitas com sucesso\n");
+    return 0;
 }
 
 //A funcao apenas printa as opcoes disponiveis
@@ -251,6 +255,7 @@ int carregarLista(ListaDeTarefas *lt, char nome[]){
     return 0;
 };
 
+//Essa funcao permite exportar as tarefas em um arquivo .txt
 int exportar(ListaDeTarefas lt){
     FILE *f = fopen("tarefas.txt", "w");
     int opcao;
@@ -334,6 +339,8 @@ int exportar(ListaDeTarefas lt){
     }
 
     if (!debug) {
-        printf("Nenhuma tarefa encontrada com o filtro escolhido.");
+        printf("Nenhuma tarefa encontrada com o filtro escolhido.\n");
+    } else{
+        printf("Tarefas exportadas no arquivo tarefas.txt\n");
     }
 };
