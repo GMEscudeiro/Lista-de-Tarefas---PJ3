@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "proj.h"
+#include <string.h>
 
 //Essa funcao cria tarefa e salva na struct lista de tarefas
 int criarTarefa(ListaDeTarefas *lt){
