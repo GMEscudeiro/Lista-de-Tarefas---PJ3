@@ -17,6 +17,7 @@ int criarTarefa(ListaDeTarefas *lt);
 int deletarTarefa(ListaDeTarefas *lt);
 int listarTarefa(ListaDeTarefas lt);
 int alterarTarefa(ListaDeTarefas *lt);
+int filtrar(ListaDeTarefas lt, int opcao);
 
 void printMenu();
 
