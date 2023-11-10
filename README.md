@@ -12,5 +12,7 @@ A lista de tarefas é um projeto desenvolvido na disciplina de Ciência da Compu
 ## Informacoes
 * Linguagem C.
 * As tarefas sao armazenadas em arquivo binario, e as tarefas exportadas são salvas em um arquivo "tarefas.txt"
+
+## Criador
 O projeto foi desenvolvido pelo aluno:
 * Guilherme Morais Escudeiro RA 24.123.005-1
