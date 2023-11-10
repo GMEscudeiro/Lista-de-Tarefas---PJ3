@@ -1,18 +1,19 @@
-//
-// Created by uniflduarte on 15/09/2023.
-//
-
 #include <stdio.h>
 #include "proj.h"
 
 //Essa funcao cria tarefa e salva na struct lista de tarefas
 int criarTarefa(ListaDeTarefas *lt){
-    printf("Tarefa: ");
-    scanf("%s", &lt->tarefas[lt->qtd].tarefa);
-    printf("Descricao da Tarefa: ");
+    printf("Tarefa:");
+    scanf("%s", &lt->tarefas[lt->qtd].categoria);
+    printf("Descricao da Tarefa:");
     scanf(" %s", &lt->tarefas[lt->qtd].descricao);
-    printf("Prioridade da Tarefa: ");
+    printf("Prioridade da Tarefa:");
     scanf(" %d", &lt->tarefas[lt->qtd].prioridade);
+    printf("Estado da Tarefa:\n");
+    printf("1 - nao iniciado\n");
+    printf("2 - em desenvolvimento\n");
+    printf("3 - completo\n");
+    scanf(" %d", &lt->tarefas[lt->qtd].estado);
     printf("\n");
     lt->qtd += 1;
     return 0;
@@ -42,21 +43,69 @@ int deletarTarefa(ListaDeTarefas *lt){
 int listarTarefa(ListaDeTarefas lt){
     for (int i = 0; i < lt.qtd; i++){
         printf("Tarefa %d:\n", i + 1);
-        printf("Nome: %s\n", lt.tarefas[i].tarefa);
+        printf("Categoria: %s\n", lt.tarefas[i].categoria);
         printf("Descricao: %s\n", lt.tarefas[i].descricao);
         printf("Prioridade: %d\n" , lt.tarefas[i].prioridade);
+        if(lt.tarefas[i].estado == 1){
+            printf("Estado: Nao iniciado");
+        }else if(lt.tarefas[i].estado == 2){
+            printf("Estado: Em desenvolvimento");
+        }else{
+            printf("Estado: Completo");
+        }
         printf("\n");
     }
     return 0;
 };
+
+int alterarTarefa(ListaDeTarefas *lt){
+    int tarefa;
+    int campo;
+    printf("Qual tarefa deseja alterar?");
+    scanf("%d", &tarefa);
+
+    if (tarefa < 1 || tarefa > lt->qtd) {
+        printf("Numero invalido.\n");
+        return 1;
+    }
+
+    printf("Qual campo deseja alterar?\n");
+    printf("1 - Categoria\n");
+    printf("2 - Descricao\n");
+    printf("3 - Prioridade\n");
+    printf("4 - Estado\n");
+    scanf("%d", &campo);
+
+    if(campo == 1){
+        printf("Insira a nova categoria:");
+        scanf("%s", &lt->tarefas[tarefa-1].categoria);
+    }
+    if(campo == 2){
+        printf("Insira a nova descricao:");
+        scanf("%s", &lt->tarefas[tarefa-1].descricao);
+    }
+    if(campo == 3){
+        printf("Insira a nova prioridade:");
+        scanf("%d", &lt->tarefas[tarefa-1].prioridade);
+    }
+    if(campo == 4){
+        printf("Insira o novo estado:\n");
+        printf("1 - nao iniciado\n");
+        printf("2 - em desenvolvimento\n");
+        printf("3 - completo\n");
+        scanf("%d", &lt->tarefas[tarefa-1].estado);
+    }
+
+}
 
 //A funcao apenas printa as opcoes disponiveis
 void printMenu(){
     printf("1 - Criar Tarefa\n");
     printf("2 - Deletar Tarefa\n");
     printf("3 - Listar Tarefas\n");
-    printf("4 - Sair\n");
-    printf("Digite a opcao que voce quer executar: ");
+    printf("4 - Alterar Tarefas\n");
+    printf("0 - Sair\n");
+    printf("Digite a opcao que voce quer executar:");
 };
 
 //Essa funcao salva as tarefas da struct em um arquivo binario
