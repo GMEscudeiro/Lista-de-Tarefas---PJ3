@@ -4,7 +4,7 @@
 
 //Essa funcao cria tarefa e salva na struct lista de tarefas
 int criarTarefa(ListaDeTarefas *lt){
-    printf("Tarefa:");
+    printf("Categoria:");
     scanf("%s", &lt->tarefas[lt->qtd].categoria);
     printf("Descricao da Tarefa:");
     scanf(" %s", &lt->tarefas[lt->qtd].descricao);
